@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,13 +39,21 @@ public class NewServlet extends HttpServlet {
         m.setCreated_at(currentTime);
         m.setUpdated_at(currentTime);
 
-        // Databaseに保存
-        em.persist(m);
-        em.getTransaction().commit();
+        // Databaseに保存   動作確認用
+		// em.persist(m);
+		// em.getTransaction().commit();
 
+        // 自動採番されたIDの値をBrowserに表示　動作確認用
+        // response.getWriter().append(Integer.valueOf(m.getId()).toString());
 
-        // 自動採番されたIDの値を表示
-        response.getWriter().append(Integer.valueOf(m.getId()).toString());
+        // CSRF対策　Security
+        request.setAttribute("_token", request.getSession().getId());
+
+        // 事前設定として　Instance生成　Task 呼び出し　
+        request.setAttribute("task", new Task());
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/new.jsp");
+        rd.forward(request, response);
 
         em.close();
 	}

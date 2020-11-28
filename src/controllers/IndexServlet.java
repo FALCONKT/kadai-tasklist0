@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,9 +43,14 @@ public class IndexServlet extends HttpServlet {
         List<Task> tasks = em.createNamedQuery("getAllTasks",Task.class)
                 .getResultList();
 
-        //    BrowserㇸTableの中身表示用
+        //    BrowserㇸTableの中身表示用 確認用
         response.getWriter().append(Integer.valueOf(tasks.size()).toString());
         em.close();
+
+        request.setAttribute("tasks",tasks);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/index.jsp");
+        rd.forward(request, response);
 
     }
 
