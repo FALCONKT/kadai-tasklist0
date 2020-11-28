@@ -10,6 +10,17 @@
         </form>
 
         <p><a href="${pageContext.request.contextPath}/index">一覧に戻る</a></p>
+		<p><a href="#" onclick="confirmDestroy();">この　やること　を削除する。</a></p>
+		<form method="POST" action="${pageContent.request.contextPath }/destroy">
+		<input type="hidden" name="_taken" value="${_token}" />
+		</form>
 
+<script>
+faunction confirmDestroy(){
+	if(confirm("放蕩に削除してよろしいでしょうか?"){
+		document.forms[1].submit();
+	}
+}
+</script>
     </c:param>
 </c:import>
