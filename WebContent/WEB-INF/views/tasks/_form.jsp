@@ -1,4 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%--Varidation--%>
+<c:if test="${errors != null}">
+    <div id="flush_error">
+        入力内容に不備があります。<br />
+        <c:forEach var="error" items="${errors}">
+            ・<c:out value="${error}" /><br />
+        </c:forEach>
+    </div>
+</c:if>
+
 
 <%-- 実験使用
 <label for="created_at">作成日</label><br />
