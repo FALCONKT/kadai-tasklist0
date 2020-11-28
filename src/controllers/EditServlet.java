@@ -24,15 +24,19 @@ public class EditServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EntityManager em = DBUtil.createEntityManager();
 
-		//	Class型変数　に　DBのRRequest Parameter　を取得　都度閉じる
+		//	Class型変数　に　DBのRequest Parameter　を取得　都度閉じる
 		Task m = em.find(Task.class , Integer.parseInt(request.getParameter("id")) );
 		em.close();
 
 		 // やることの情報とSessionIDをRequestScopeに登録
         request.setAttribute("task", m);
         request.setAttribute("_token", request.getSession().getId());
+
+        //やることDataが存在している場合のみ
         // やることIDをSessionScopeに登録
-        request.getSession().setAttribute("task_id", m.getId());
+        if(m != null){
+        	request.getSession().setAttribute("task_id", m.getId());
+        }
 
         // 定型　Forward
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/edit.jsp");

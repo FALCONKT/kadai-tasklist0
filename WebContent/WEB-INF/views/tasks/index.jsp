@@ -15,8 +15,8 @@
                     </a>：
                     <%--やることの内容--%>
                     <c:out value="${task.content}"></c:out> &gt;
-                     最新更新日<c:out value="${tssk.updated_at}" />&gt;
-                    初回作成日<c:out value="${tssk.created_at}" />
+                     最新更新<c:out value="${task.updated_at}" />&gt;
+                    初回作成<c:out value="${task.created_at}" />
                   </li>
             </c:forEach>
         </ul>

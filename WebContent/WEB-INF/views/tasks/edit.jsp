@@ -3,24 +3,37 @@
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
-        <h2>id : ${task.id} のやることの編集ページ</h2>
 
-        <form method="POST" action="${pageContext.request.contextPath}/update">
-            <c:import url="_form.jsp" />
-        </form>
+		    <c:choose>
 
-        <p><a href="${pageContext.request.contextPath}/index">一覧に戻る</a></p>
-		<p><a href="#" onclick="confirmDestroy();">この　やること　を削除する。</a></p>
-		<form method="POST" action="${pageContent.request.contextPath }/destroy">
-		<input type="hidden" name="_taken" value="${_token}" />
-		</form>
+		    	<c:when  test="${task != null}">
 
-<script>
-faunction confirmDestroy(){
-	if(confirm("放蕩に削除してよろしいでしょうか?"){
-		document.forms[1].submit();
-	}
-}
-</script>
+				        <h2>id : ${task.id} のやることの編集ページ</h2>
+
+				        <form method="POST" action="${pageContext.request.contextPath}/update">
+				            <c:import url="_form.jsp" />
+				        </form>
+
+				        <p><a href="${pageContext.request.contextPath}/index">一覧に戻る</a></p>
+						<p><a href="#" onclick="confirmDestroy();">このやることを削除する。</a></p>
+				        <form method="POST" action="${pageContext.request.contextPath}/destroy">
+						<input type="hidden" name="_token" value="${_token}" />
+						</form>
+
+						<script>
+						function confirmDestroy(){
+							if(confirm("本当に削除してよろしいでしょうか?")){
+								document.forms[1].submit();
+							}
+						}
+						</script>
+				</c:when>
+
+				<c:otherwise>
+				                <h2>お探しのデータは見つかりませんでした。</h2>
+				</c:otherwise>
+
+		</c:choose>
+
     </c:param>
 </c:import>

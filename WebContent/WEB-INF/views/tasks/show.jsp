@@ -8,14 +8,24 @@
 
     <c:param name="content">
 
-        <h2>id : ${task.id} のメッセージ詳細ページ</h2>
+			<c:choose>
+				<c:when test="${task != null}">
+			        <h2>id : ${task.id} のメッセージ詳細ページ</h2>
+	
+			        <p>やることの内容：<c:out value="${task.content}" /></p>
+			        <p>作成日時：<fmt:formatDate value="${task.created_at}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
+			        <p>更新日時：<fmt:formatDate value="${task.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
+	
+			        <p><a href="${pageContext.request.contextPath}/index">一覧に戻る</a></p>
+					<p><a href="${pageContext.request.contextPath}/edit?id=${task.id}">このやることを編集する</a></p>
+			</c:when>
 
-        <p>やることの内容：<c:out value="${task.content}" /></p>
-        <p>作成日時：<fmt:formatDate value="${task.created_at}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
-        <p>更新日時：<fmt:formatDate value="${task.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
+            <c:otherwise>
+                <h2>お探しのデータは見つかりませんでした。</h2>
+            </c:otherwise>
 
-        <p><a href="${pageContext.request.contextPath}/index">一覧に戻る</a></p>
-		<p><a href="${pageContext.request.contextPath}/edit?id=${task.id}">このやることを編集する</a></p>
+		</c:choose>
+
     </c:param>
 
 </c:import>
