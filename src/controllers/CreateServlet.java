@@ -42,9 +42,11 @@ public class CreateServlet extends HttpServlet {
             // TaskClassのObjectを　DBへ保存している
             em.getTransaction().begin();
             em.persist(m);
-
             em.getTransaction().commit();
+            //FlashMessage　後で追加分
+            request.getSession().setAttribute("flush", "登録が完了しました。");       // ここを追記
             em.close();
+            //DB更新　終了
 
             response.sendRedirect(request.getContextPath() + "/index");
 

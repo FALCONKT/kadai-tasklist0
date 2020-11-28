@@ -45,7 +45,10 @@ public class UpdateServlet extends HttpServlet {
 	            //DB更新
 	            em.getTransaction().begin();
 	            em.getTransaction().commit();
+	             // FlushMessage 後で追加分
+	            request.getSession().setAttribute("flush", "更新が完了しました。");       // ここを追記
 	            em.close();
+	            //DB更新　修了
 
 	            // SessionScope上の不要になったDataを削除
 	            request.getSession().removeAttribute("message_id");

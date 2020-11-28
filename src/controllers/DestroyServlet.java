@@ -31,11 +31,14 @@ public class DestroyServlet extends HttpServlet {
 	            // そのIDの　やること1件のみ　をDBから取得
 	            Task m = em.find(Task.class, (Integer)(request.getSession().getAttribute("task_id")));
 
-	            //  DBへAccess　対象を消す　確定し　閉じる
+	            //  DBへAccess　対象を消す　確定まで
 	            em.getTransaction().begin();
 	            em.remove(m);       // ここでData削除
 	            em.getTransaction().commit();
+	            //FlashMessage　後で追加分
+	            request.getSession().setAttribute("flush", "削除が完了しました。");       // ここを追記
 	            em.close();
+	            // DB Access 終了
 
 	            // SessionScope上の不要になったDataを削除
 	            request.getSession().removeAttribute("task_id");
